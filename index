@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nandx Sensibility | Calibración Gamer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Nandx Sensibility</h1>
+        <p class="tagline">Análisis de Hardware & Estabilización de Mira</p>
+    </header>
+
+    <section class="device-info">
+        <input type="text" id="deviceName" placeholder="Modelo del dispositivo">
+        <input type="number" id="deviceRam" placeholder="Memoria RAM (GB)">
+        <div class="dpi-selector">
+            <button class="btn-opt" id="btnSinDpi" onclick="setDPI(false)">SIN DPI</button>
+            <button class="btn-opt" id="btnConDpi" onclick="setDPI(true)">CON DPI</button>
+        </div>
+    </section>
+
+    <nav class="menu-grid">
+        <button class="btn-main" onclick="showSection('crear')">CREAR SENSI</button>
+        <button class="btn-main" onclick="showSection('estabilizar')">ESTABILIZAR</button>
+        <button class="btn-main" onclick="showSection('hud')" style="grid-column: span 2;">CUSTOM HUD</button>
+    </nav>
+
+    <div id="crear" class="section">
+        <h3>Generar Sensibilidad</h3>
+        <div class="sliders" id="slidersList"></div>
+        <div class="slider-group">
+            <label>Botón de Disparo: <span id="valBoton">50</span>%</label>
+            <input type="range" id="inputBoton" min="10" max="100" value="50" oninput="updateLabel('valBoton', this.value)">
+        </div>
+        <button class="btn-action" onclick="procesar('crear')">GENERAR SENSIBILIDAD</button>
+    </div>
+
+    <div id="estabilizar" class="section">
+        <h3>Calibrar y Estabilizar</h3>
+        <p style="font-size: 0.8rem; color: #888;">Ingresa tus valores actuales para corregir el sobrepaso de cabeza.</p>
+        <div class="sliders" id="slidersEstabilizar"></div>
+        <button class="btn-action" onclick="procesar('estabilizar')">CALIBRAR AHORA</button>
+    </div>
+
+    <div id="hud" class="section">
+        <h3>Custom HUD Adaptativo</h3>
+        <div class="hud-options">
+            <button onclick="setHud(2)">2 DEDOS</button>
+            <button onclick="setHud(3)">3 DEDOS</button>
+            <button onclick="setHud(4)">4 DEDOS</button>
+        </div>
+        <div class="hud-actions">
+            <button class="btn-opt">CARGAR CAPTURA</button>
+            <button class="btn-opt" onclick="recomendarHud()">RECOMENDAR MEJORA</button>
+        </div>
+    </div>
+
+    <div id="loading" class="loading-overlay">Analizando dispositivo en tiempo real...</div>
+    <div id="results" class="result-box"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
+
