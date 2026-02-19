@@ -1,0 +1,94 @@
+:root {
+    --neon: #00f2ff;
+    --bg: #0d0d0d;
+    --card: #1a1a1a;
+    --accent: #111;
+}
+
+body {
+    background-color: var(--bg);
+    color: white;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 450px;
+    padding: 20px;
+}
+
+h1 { color: var(--neon); text-align: center; letter-spacing: 3px; margin-bottom: 0; }
+.tagline { text-align: center; color: #666; font-size: 0.8rem; margin-top: 5px; }
+
+.device-info, .section {
+    background: var(--card);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #222;
+}
+
+input[type="text"], input[type="number"] {
+    width: 100%;
+    background: var(--accent);
+    border: 1px solid #333;
+    padding: 12px;
+    color: white;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.dpi-selector, .menu-grid, .hud-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn-opt, .btn-main, .btn-action {
+    background: transparent;
+    border: 1px solid var(--neon);
+    color: var(--neon);
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-main:hover, .btn-opt.active {
+    background: var(--neon);
+    color: black;
+}
+
+.section { display: none; }
+.section.active { display: block; animation: slideUp 0.4s ease; }
+
+@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+.slider-group { margin: 15px 0; }
+.slider-group label { display: flex; justify-content: space-between; font-size: 0.85rem; }
+
+input[type="range"] { width: 100%; accent-color: var(--neon); margin-top: 5px; }
+
+.result-box {
+    display: none;
+    background: #000;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid var(--neon);
+    margin-top: 20px;
+    font-family: monospace;
+}
+
+.loading-overlay {
+    display: none;
+    color: var(--neon);
+    text-align: center;
+    padding: 20px;
+}
+
