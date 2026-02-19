@@ -1,0 +1,67 @@
+const campos = ["General", "Punto Rojo", "Mira x2", "Mira x4", "AWM", "Cámara 360"];
+let dpiActivo = false;
+
+// Generar sliders dinámicamente
+function crearSliders(containerId) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = "";
+    campos.forEach((campo, index) => {
+        container.innerHTML += `
+            <div class="slider-group">
+                <label>${campo} <span id="val-${containerId}-${index}">100</span></label>
+                <input type="range" min="0" max="200" value="100" 
+                    oninput="document.getElementById('val-${containerId}-${index}').innerText = this.value">
+            </div>`;
+    });
+}
+
+function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    if(id === 'crear') crearSliders('slidersList');
+    if(id === 'estabilizar') crearSliders('slidersEstabilizar');
+}
+
+function setDPI(val) {
+    dpiActivo = val;
+    document.getElementById('btnConDpi').classList.toggle('active', val);
+    document.getElementById('btnSinDpi').classList.toggle('active', !val);
+}
+
+function procesar(modo) {
+    const name = document.getElementById('deviceName').value;
+    const ram = document.getElementById('deviceRam').value;
+    
+    if(!name || !ram) return alert("Ingresa dispositivo y RAM");
+
+    const loading = document.getElementById('loading');
+    const results = document.getElementById('results');
+    
+    results.style.display = "none";
+    loading.style.display = "block";
+
+    setTimeout(() => {
+        loading.style.display = "none";
+        results.style.display = "block";
+        
+        let factor = ram > 6 ? 0.95 : 1.1; // Ajuste por gama
+        let sensiGen = Math.floor((Math.random() * 40 + 150) * (dpiActivo ? 0.8 : 1));
+
+        results.innerHTML = `
+            <strong>ANÁLISIS: ${name.toUpperCase()}</strong><br>
+            Gama detectada: ${ram < 4 ? 'Baja' : (ram < 8 ? 'Media' : 'Alta')}<br>
+            ---------------------------<br>
+            General: ${sensiGen}<br>
+            Punto Rojo: ${Math.floor(sensiGen * 0.9)} (Calibrado)<br>
+            Mira x2: 172<br>
+            Mira x4: 165<br>
+            Botón Sugerido: ${ram > 4 ? '42%' : '55%'}<br>
+            DPI: ${dpiActivo ? 'Sugerido 600' : 'Uso estándar'}
+        `;
+    }, 2000);
+}
+
+function recomendarHud() {
+    alert("Analizando biomecánica de dedos... Generando layout anti-trabas.");
+}
+
